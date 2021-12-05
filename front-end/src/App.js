@@ -9,6 +9,8 @@ import { getAuthUser } from "./redux/action/auth-action";
 import PrivateRoute from "./components/routes/privateRoute";
 import ApprouveUser from "./components/views/ApprouveUser";
 import UploadFile from "./components/UploadFile";
+import EditProfile from "./components/views/EditProfile";
+import SharedDocument from "./components/views/SharedDocument";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,6 +30,8 @@ function App() {
 
         <PrivateRoute path="/ApprouveUser" component={ApprouveUser} />
         <PrivateRoute path="/upload" component={UploadFile} />
+        <PrivateRoute path="/edit" component={EditProfile} />
+        <PrivateRoute path="/shared" component={SharedDocument} />
       </Router>
       {/* <UploadFile /> */}
     </div>

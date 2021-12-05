@@ -23,7 +23,7 @@ export default class Upload extends Component {
     });
     console.log(this.state.file);
     const file = e.currentTarget.files[0];
-    console.log(file.name);
+    console.log(file?.name);
 
     if (file) {
       let fileReader = new FileReader();
@@ -37,6 +37,20 @@ export default class Upload extends Component {
     const data = new FormData();
     data.append("file", this.state.file);
     axios.post("http://localhost:2000/upload", data);
+    // const { description, title, image, categorie, file } = this.state;
+    const fileName = this.state.file.name;
+    console.log(fileName, "fileName");
+    axios
+      .post("http://localhost:2000/addfile", {
+        // description,
+        // title,
+        // image: image.name,
+        // categorie,
+        filename: fileName,
+      })
+      .then((res) => console.log(res.data, "res.data"));
+
+    alert("file added with success");
   };
 
   render() {

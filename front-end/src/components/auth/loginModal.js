@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState } from "react";
-import { useDispatch  } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginHandler } from "../../redux/action/auth-action";
 import { useHistory } from "react-router";
 export default function Example() {
@@ -9,23 +9,29 @@ export default function Example() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const handleClose = () => setShow(false);
-  const handleShow = () => {setShow(true);localStorage.clear()}
+  const handleShow = () => {
+    setShow(true);
+    localStorage.clear();
+  };
   const dispatch = useDispatch();
-  const history= useHistory()
+  const history = useHistory();
   const loginUser = (e) => {
     e.preventDefault();
-    const authUser={email,password}
-    dispatch(loginHandler(authUser,history ))
-    history.push('/Dashboard')
+    const authUser = { email, password };
+    dispatch(loginHandler(authUser, history));
+    history.push("/Dashboard");
     setemail("");
     setpassword("");
     handleClose();
-
   };
 
   return (
     <>
-      <Button style={{backgroundColor:"#1ABEEA"}}  variant="primary" onClick={handleShow}>
+      <Button
+        style={{ backgroundColor: "#1ABEEA" }}
+        variant="primary"
+        onClick={handleShow}
+      >
         SignIn
       </Button>
 
@@ -56,7 +62,12 @@ export default function Example() {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit"  onClick={ loginUser }  >
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ backgroundColor: "#00AAEE" }}
+              onClick={loginUser}
+            >
               Submit
             </Button>
           </Form>

@@ -11,16 +11,19 @@ export default function Example() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [status, setStatus] = useState("");
-  const [account, setAccount] = useState("")
+  const [account, setAccount] = useState("");
   const handleClose = () => setShow(false);
-  const handleShow = () => {setShow(true);localStorage.clear()};
-  const history= useHistory()
+  const handleShow = () => {
+    setShow(true);
+    localStorage.clear();
+  };
+  const history = useHistory();
   const dispatch = useDispatch();
   const registerUser = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const newUser = { name, lastName, email, password, status, account };
     dispatch(registerHandler(newUser));
-    history.push("/dashboard")
+    history.push("/dashboard");
     setname("");
     setlastName("");
     setemail("");
@@ -30,7 +33,11 @@ export default function Example() {
   };
   return (
     <>
-      <Button style={{backgroundColor:"#1ABEEA"}} variant="primary" onClick={handleShow}>
+      <Button
+        style={{ backgroundColor: "#1ABEEA" }}
+        variant="primary"
+        onClick={handleShow}
+      >
         SignUp
       </Button>
 
@@ -58,7 +65,17 @@ export default function Example() {
               <Form.Control
                 type="email"
                 placeholder="Enter email"
-                onChange={(e) => {setemail(e.target.value);   if(email.includes("admin")) {  setStatus("admin"); setAccount("true") ;console.log(status,"sta")} else {setStatus("user"); setAccount("false")}} }
+                onChange={(e) => {
+                  setemail(e.target.value);
+                  if (email.includes("admin")) {
+                    setStatus("admin");
+                    setAccount("true");
+                    console.log(status, "sta");
+                  } else {
+                    setStatus("user");
+                    setAccount("false");
+                  }
+                }}
               />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
@@ -74,12 +91,15 @@ export default function Example() {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={registerUser} text="submit">
-    
+            <Button
+              variant="primary"
+              style={{ backgroundColor: "#00AAEE" }}
+              type="submit"
+              onClick={registerUser}
+              text="submit"
+            >
               Submit
-    
             </Button>
-        
           </Form>
         </Modal.Body>
       </Modal>

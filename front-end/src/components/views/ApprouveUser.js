@@ -25,10 +25,16 @@ const ApprouveUser = () => {
                 alignSelf: "stretch",
               }}
             >
-              <a>{user._id}</a>
-              <a>{user.name}</a>
-              <a>{user.email}</a>
-              <a style={{ color: "red" }}>{user.account}</a>
+              <a style={user?.account === "true" ? { color: "red" } : null}>
+                {user._id}
+              </a>
+              <a style={user?.account === "true" ? { color: "red" } : null}>
+                {user.name}
+              </a>
+              <a style={user?.account === "true" ? { color: "red" } : null}>
+                {user.email}
+              </a>
+              {/* <a style={{ color: "red" }}>{user.account}</a> */}
               <button
                 type="button"
                 class="btn btn-link"

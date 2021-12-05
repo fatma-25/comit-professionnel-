@@ -40,42 +40,52 @@ app.post("/upload", (req, res) => {
       console.error(err);
       return res.status(500).send(err);
     }
-    // const newfile = new Files({
-    //   // image,
-    //   // title,
-    //   // description,
-    //   filename: file.name,
-    // });
-    // newfile
-    //   .save()
-    //   .then((file) => {
-    //     res.send(file), console.log("filename added");
-    //   })
-    //   .catch((err) => {
-    //     res.send(err);
-    //   });
     res.json({ filename: file.name, filePath: `/uploads/${file.name}` });
   });
 });
 
-// app.post("/addfile", (req, res) => {
-//   const { image, title, description, filename } = req.body;
-//   Files.findOne({ title }).then((file) => {
-//     if (file) {
-//       return res.json({ msg: "file already exist" });
-//     } else {
-//       const newfile = new Files({
-//         image,
-//         title,
-//         description,
-//         filename,
-//       });
-//       newfile
-//         .save()
-//         .then((file) => res.send(file))
-//         .catch((err) => {
-//           res.send(err);
-//         });
-//     }
-//   });
-// });
+app.post("/addfile", async (req, res) => {
+  // const { image, title, description, filename } = req.body;
+  const { filename } = req.body;
+
+  // Files.findOne({ title }).then((file) => {
+  //   if (file) {
+  //     return res.json({ msg: "file already exist" });
+  //   } else {
+  const newfile = new Files({
+    // image,
+    // title,
+    // description,
+    filename,
+  });
+  await newfile
+    .save()
+    .then((file) => res.send(file))
+    .catch((err) => {
+      res.send(err);
+    });
+  // }
+  // });
+});
+
+app.get("/file/:id", (req, res) => {
+  const id = req.params.id;
+  Files.findOne({ _id: id }, (err, file) => {
+    if (err) res.send("cannot find file");
+    else res.send(file);
+  });
+});
+
+app.get("/file", (req, res) => {
+  Files.find().then((file) => res.send(file));
+  // .catch((err) => console.log(err));
+});
+
+app.get(`/pdf/:fileName`, (req, res) => {
+  // var file = fs.createReadStream(`${__dirname}/client/public/uploads/bac-pratique-2016-tic.pdf`)
+  console.log(req.params.fileName, "req.params.fileName");
+  var file = fs.createReadStream(
+    `${__dirname}/../front-end/public/uploads/${req.params.fileName}`
+  );
+  file.pipe(res);
+});

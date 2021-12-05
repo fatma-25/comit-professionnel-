@@ -33,15 +33,40 @@ export default function NavFct() {
         )}
         {/* <Button onClick={logoutUser} > Logout  </Button> */}
         {user?.account === "true" ? (
+          <div style={{ display: "flex" }}>
+            <Nav.Link style={{ color: "white" }}>
+              <Link
+                style={{ color: "white", textDecoration: "none" }}
+                to="/upload"
+              >
+                Upload
+              </Link>
+            </Nav.Link>
+            <Nav.Link style={{ color: "white" }}>
+              <Link
+                style={{ color: "white", textDecoration: "none" }}
+                to="/edit"
+              >
+                Edit Profile
+              </Link>
+            </Nav.Link>
+            <Nav.Link style={{ color: "white" }}>
+              <Link
+                style={{ color: "white", textDecoration: "none" }}
+                to="/shared"
+              >
+                Shared Document
+              </Link>
+            </Nav.Link>
+          </div>
+        ) : null}
+        {/* {user?.account === "true" ? (
           <Nav.Link style={{ color: "white" }}>
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to="/upload"
-            >
-              upload
+            <Link style={{ color: "white", textDecoration: "none" }} to="/edit">
+              Edit Profile
             </Link>
           </Nav.Link>
-        ) : null}
+        ) : null} */}
         <Nav.Link style={{ color: "white" }} onClick={logoutUser}>
           Logout
         </Nav.Link>
