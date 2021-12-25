@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const isAuth = require("../middlewares/isAuth");
 const { loginValidation, validation } = require("../middlewares/validation");
+const nodemailer = require("nodemailer");
 
 router.get("/test", (req, res) => {
   res.send("it works");
@@ -39,7 +40,7 @@ router.post("/register", async (req, res) => {
 
     //save the user
     await user.save();
-
+    console.log("usersaved");
     /////sign in of the user
     const token = jwt.sign({ id: user._id }, process.env.PASS_TOKEN, {
       expiresIn: "7 days",
@@ -101,6 +102,46 @@ router.get("/all", async (req, res) => {
   }
 });
 
+router.put("/:id/contact", async (req, res) => {
+  console.log(req.body, "ttttttt");
+  const output = `
+    <p>You have a new user request</p>
+    <h3>User Need Help's Details</h3>
+    <ul>  
+      <li>email: ${req.body.email}</li>
+      <li>name: ${req.body.name}</li>
+      <li>text: ${req.body.text}</li>
+    
+    </ul> `;
+  var transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 587, false for other ports
+    requireTLS: true,
+    auth: {
+      user: "etudiant.amara.fatma@uvt.tn",
+      pass: "05495769",
+    },
+  });
+
+  var mailOptions = {
+    from: "etudiant.amara.fatma@uvt.tn",
+
+    to: "fatma55amara@gmail.com",
+    subject: "User Need Help!",
+    text: "User Need Help!",
+    html: output,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  });
+});
+
 router.put("/:id", async (req, res) => {
   let id = req.params.id;
   let updateuser = req.body;
@@ -108,6 +149,47 @@ router.put("/:id", async (req, res) => {
   User.findOneAndUpdate({ _id: id }, { $set: { ...updateuser } })
     .then((user) => res.send(user))
     .catch((err) => console.log(err));
+
+  const output = `
+    <p>You have a new user request</p>
+    <h3>Contact Details</h3>
+    <ul>  
+      <li>email: ${req.body.email}</li>
+      <li>name: ${req.body.name}</li>
+      <li>text: ${req.body.text}</li>
+    
+    </ul> `;
+  var transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 587, false for other ports
+    requireTLS: true,
+    auth: {
+      user: "etudiant.amara.fatma@uvt.tn",
+      pass: "05495769",
+    },
+  });
+
+  var mailOptions = {
+    from: "etudiant.amara.fatma@uvt.tn",
+
+    to: "fatma55amara@gmail.com",
+    subject: "User Need Help!",
+    text: "User Need Help!",
+    // html: "<h1>User Need Help! </h1><p>\
+    //   <h3>Hello </h3>\
+    //   the text of the user<br/>\
+    //  ",
+    html: output,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  });
 });
 
 router.get("/:id", (req, res) => {

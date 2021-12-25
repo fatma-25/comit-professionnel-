@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 .navBtns{
@@ -42,4 +42,8 @@ width: 150px;
     transform: rotate(360deg);
   }
 }
+ */
 
+ .messagepanel {
+  padding-left: 300px !important;
+}

@@ -1,0 +1,20 @@
+.ui.menu .item{
+    color : rgb(180,180,185) !important;
+}
+
+.clickable:hover{
+    cursor: pointer;
+}
+
+.ui.menu .item.active{
+    background : #1164A3 !important;
+}
+
+
+.modal {
+    height: auto;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+}
