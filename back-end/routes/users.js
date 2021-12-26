@@ -119,8 +119,8 @@ router.put("/:id/contact", async (req, res) => {
     secure: false, // true for 587, false for other ports
     requireTLS: true,
     auth: {
-      user: "etudiant.amara.fatma@uvt.tn",
-      pass: "05495769",
+      user: "", //email in here
+      pass: "", //password in here
     },
   });
 
